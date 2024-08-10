@@ -17,11 +17,14 @@ ob = Actor("OB")
 oyun_sonu = 0
 
 def draw():
-    arkaplan.draw()
-    uzayli.draw()
-    kutu.draw()
-    ari.draw()
-    
+    if oyun_sonu == 0:
+        arkaplan.draw()
+        uzayli.draw()
+        kutu.draw()
+        ari.draw()
+    else:
+        ob.draw()
+        
 def update(dt):
     global new_image
     global oyun_sonu
@@ -30,7 +33,15 @@ def update(dt):
         ari.x = ari.x - 5
     else:
         ari.x = WIDTH + 20
-        
+    
+    if oyun_sonu == 1:
+        if keyboard.enter:  
+            uzayli.pos = (50, 240)
+            kutu.pos = (550, 265)
+            ari.pos = (850, 175)
+            oyun_sonu = 0
+            
+            
     # Kutunun Hareketi
     if kutu.x > -20:
         kutu.x = kutu.x - 5
