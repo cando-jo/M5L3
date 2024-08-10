@@ -7,11 +7,14 @@ TITLE = "Uzaylı Yarışı" # Oyunun Adı
 FPS = 30 # Saniyedeki Kare Sayısı
 
 # Nesneler
-uzayli= Actor('uzaylı', (50, 240))
+uzayli = Actor('uzaylı', (50, 240))
 arkaplan = Actor("arkaplan")
 kutu = Actor('kutu', (550, 265))
-ari = Actor('arı', (875, 150))
-new_image = 'uzaylı' # Mevcut Resmi Takip Eder
+new_image = 'uzaylı' # Anlık Görüntüyü Takip Eder
+ari = Actor('arı', (850, 175))
+ob = Actor("OB")
+
+oyun_sonu = 0
 
 def draw():
     arkaplan.draw()
@@ -21,6 +24,13 @@ def draw():
     
 def update(dt):
     global new_image
+    global oyun_sonu
+    # Arının Hareketi
+    if ari.x > -20:
+        ari.x = ari.x - 5
+    else:
+        ari.x = WIDTH + 20
+        
     # Kutunun Hareketi
     if kutu.x > -20:
         kutu.x = kutu.x - 5
@@ -28,15 +38,9 @@ def update(dt):
     else:
         kutu.x = WIDTH + 20
         
-    # Arinin Hareketi
-    if ari.x > -20:
-        ari.x = ari.x - 5
-    else:
-        ari.x = WIDTH + 20
-        
     # Kontroller
     if keyboard.left or keyboard.a and uzayli.x > 20:
-        uzayli.x =uzayli.x - 5
+        uzayli.x = uzayli.x - 5
         if new_image != 'sol':
             uzayli.image = 'sol'
             new_image = 'sol'
@@ -55,9 +59,24 @@ def update(dt):
             uzayli.image = 'uzaylı'
             new_image = 'uzaylı'
             uzayli.y = 240
+    
+    # Çarpışma 
+    if uzayli.colliderect(kutu):
+        oyun_sonu = 1
+        if new_image != 'yaralı':
+            uzayli.image = 'yaralı'
+            new_image = 'yaralı'
+            
+    if uzayli.colliderect(ari):
+        oyun_sonu = 1
+        if new_image != 'yaralı':
+            uzayli.image = 'yaralı'
+            new_image = 'yaralı'
         
 def on_key_down(key):
     # Zıplama
     if keyboard.space or keyboard.up or keyboard.w:
         uzayli.y = 100
         animate(uzayli, tween='bounce_end', duration=2, y=240)
+        
+        
