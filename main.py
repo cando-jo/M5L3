@@ -15,6 +15,7 @@ ari = Actor('arı', (850, 175))
 ob = Actor("OB")
 
 oyun_sonu = 0
+puan = 0
 
 def draw():
     if oyun_sonu == 0:
@@ -22,7 +23,7 @@ def draw():
         uzayli.draw()
         kutu.draw()
         ari.draw()
-        screen.draw.text("Uzay Koşusu", pos=(10, 10), color="white", fontsize = 24)
+        screen.draw.text(puan, pos=(10, 10), color="white", fontsize = 24)
     else:
         ob.draw()
         screen.draw.text("Enter'e Basınız", center=(300, 83), color="red", fontsize = 40)
@@ -30,10 +31,12 @@ def draw():
 def update(dt):
     global new_image
     global oyun_sonu
+    global puan
     # Arının Hareketi
     if ari.x > -20:
         ari.x = ari.x - 5
     else:
+        puan += 1
         ari.x = WIDTH + 20
     
     if oyun_sonu == 1:
@@ -42,6 +45,7 @@ def update(dt):
             kutu.pos = (550, 265)
             ari.pos = (850, 175)
             oyun_sonu = 0
+            puan = 0
             
             
     # Kutunun Hareketi
@@ -50,6 +54,7 @@ def update(dt):
         kutu.angle = kutu.angle + 5
     else:
         kutu.x = WIDTH + 20
+        puan += 1
         
     # Kontroller
     if keyboard.left or keyboard.a and uzayli.x > 20:
