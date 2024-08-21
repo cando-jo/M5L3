@@ -12,14 +12,22 @@ arkaplan = Actor("arkaplan")
 kutu = Actor('kutu', (550, 265))
 new_image = 'uzaylı' # Anlık Görüntüyü Takip Eder
 ari = Actor('arı', (850, 175))
+ob = Actor('OB')
+oyun_sonu = 0
+
 
 def draw():
-    arkaplan.draw()
-    uzayli.draw()
-    kutu.draw()
-    ari.draw()
+    if oyun_sonu == 1:
+        ob.draw()
+    else:
+        arkaplan.draw()
+        uzayli.draw()
+        kutu.draw()
+        ari.draw()
+    
     
 def update(dt):
+    global oyun_sonu
     global new_image
     # Arının Hareketi
     if ari.x > -20:
@@ -61,11 +69,15 @@ def update(dt):
         if new_image != 'yaralı':
             uzayli.image = 'yaralı'
             new_image = 'yaralı'
+            oyun_sonu = 1
             
     if uzayli.colliderect(ari):
         if new_image != 'yaralı':
             uzayli.image = 'yaralı'
             new_image = 'yaralı'
+            oyun_sonu = 1
+            
+        
         
 def on_key_down(key):
     # Zıplama
