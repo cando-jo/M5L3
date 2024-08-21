@@ -55,9 +55,17 @@ def update(dt):
             uzayli.image = 'uzaylı'
             new_image = 'uzaylı'
             uzayli.y = 240
+            
+    if uzayli.colliderect(kutu): # Karakter kutuyla çarpışırsa
+        uzayli.image = 'yaralı'
+        
+    else:
+        uzayli.image = 'uzaylı'
         
 def on_key_down(key):
     # Zıplama
     if keyboard.space or keyboard.up or keyboard.w:
         uzayli.y = 100
         animate(uzayli, tween='bounce_end', duration=2, y=240)
+        
+        
