@@ -14,7 +14,7 @@ new_image = 'uzaylı' # Anlık Görüntüyü Takip Eder
 ari = Actor('arı', (850, 175))
 ob = Actor('OB')
 oyun_sonu = 0
-
+puan = 0
 
 def draw():
     if oyun_sonu == 1:
@@ -24,10 +24,11 @@ def draw():
         uzayli.draw()
         kutu.draw()
         ari.draw()
-        screen.draw.text("Uzay Koşusu", pos=(10, 10), color="red", fontsize = 24)
+        screen.draw.text(puan, pos=(10, 10), color="red", fontsize = 24)
     
     
 def update(dt):
+    global puan
     global oyun_sonu
     global new_image
     # Arının Hareketi
@@ -35,6 +36,7 @@ def update(dt):
         ari.x = ari.x - 5
     else:
         ari.x = WIDTH + 20
+        puan = puan + 1
         
     # Kutunun Hareketi
     if kutu.x > -20:
@@ -42,6 +44,7 @@ def update(dt):
         kutu.angle = kutu.angle + 5
     else:
         kutu.x = WIDTH + 20
+        puan = puan + 1
         
     # Kontroller
     if keyboard.left or keyboard.a and uzayli.x > 20:
