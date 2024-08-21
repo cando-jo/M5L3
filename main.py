@@ -24,6 +24,7 @@ def draw():
         uzayli.draw()
         kutu.draw()
         ari.draw()
+        screen.draw.text("Uzay Koşusu", pos=(10, 10), color="red", fontsize = 24)
     
     
 def update(dt):
@@ -66,18 +67,10 @@ def update(dt):
     
     # Çarpışma 
     if uzayli.colliderect(kutu):
-        if new_image != 'yaralı':
-            uzayli.image = 'yaralı'
-            new_image = 'yaralı'
-            oyun_sonu = 1
+        oyun_sonu = 1
             
     if uzayli.colliderect(ari):
-        if new_image != 'yaralı':
-            uzayli.image = 'yaralı'
-            new_image = 'yaralı'
-            oyun_sonu = 1
-            
-        
+        oyun_sonu = 1
         
 def on_key_down(key):
     # Zıplama
